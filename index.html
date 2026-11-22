@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BSDK Clube - Official App Download</title>
+    <meta name="description" content="Download BSDK Clube Official Android App. Fast, safe, and always up to date.">
+    <style>
+        :root {
+            --bg: #090d16;
+            --card-bg: #121927;
+            --border: #1e293b;
+            --primary: #6366f1;
+            --primary-hover: #4f46e5;
+            --accent: #10b981;
+            --text: #f8fafc;
+            --text-sub: #94a3b8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px 16px;
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.35rem;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            color: #fff;
+        }
+
+        .brand span {
+            background: linear-gradient(135deg, #a855f7, #6366f1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .btn-admin-gear {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            color: var(--text-sub);
+            padding: 7px 14px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-admin-gear:hover {
+            color: #fff;
+            border-color: var(--primary);
+        }
+
+        /* Hero */
+        .hero {
+            text-align: center;
+            padding: 40px 10px 30px;
+        }
+
+        .verified-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(16, 185, 129, 0.12);
+            color: var(--accent);
+            border: 1px solid rgba(16, 185, 129, 0.25);
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .app-avatar {
+            width: 84px;
+            height: 84px;
+            background: linear-gradient(135deg, #6366f1, #9333ea);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            font-weight: 900;
+            margin: 0 auto 16px;
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.35);
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .hero p {
+            color: var(--text-sub);
+            font-size: 1rem;
+            max-width: 500px;
+            margin: 0 auto 28px;
+        }
+
+        /* Download Card */
+        .download-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            max-width: 440px;
+            margin: 0 auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+        }
+
+        .btn-download {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            background: linear-gradient(135deg, #6366f1, #4f46e5);
+            color: #fff;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 1.15rem;
+            font-weight: 700;
+            text-decoration: none;
+            box-shadow: 0 4px 16px rgba(99, 102, 241, 0.4);
+            transition: transform 0.15s, box-shadow 0.15s;
+        }
+
+        .btn-download:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 22px rgba(99, 102, 241, 0.55);
+        }
+
+        .meta-row {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 18px;
+            padding-top: 14px;
+            border-top: 1px solid var(--border);
+            font-size: 0.85rem;
+            color: var(--text-sub);
+        }
+
+        .meta-item b {
+            display: block;
+            color: var(--text);
+            font-size: 0.95rem;
+            margin-top: 2px;
+        }
+
+        /* Features */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            margin: 45px 0;
+        }
+
+        .feature-box {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 18px;
+        }
+
+        .feature-box .icon {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+        }
+
+        .feature-box h3 {
+            font-size: 1.05rem;
+            margin-bottom: 4px;
+        }
+
+        .feature-box p {
+            color: var(--text-sub);
+            font-size: 0.85rem;
+        }
+
+        /* How to install */
+        .guide {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px dashed var(--border);
+            border-radius: 14px;
+            padding: 24px;
+            margin-bottom: 40px;
+        }
+
+        .guide h2 {
+            font-size: 1.3rem;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            text-align: center;
+        }
+
+        .step-circle {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin: 0 auto 8px;
+            font-size: 0.9rem;
+        }
+
+        .step p {
+            color: var(--text-sub);
+            font-size: 0.8rem;
+            margin-top: 4px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            color: var(--text-sub);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(4px);
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+            padding: 16px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            width: 100%;
+            max-width: 450px;
+            padding: 24px;
+        }
+
+        .modal-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: var(--text-sub);
+            font-size: 1.6rem;
+            cursor: pointer;
+        }
+
+        .tab-nav {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 10px;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            color: var(--text-sub);
+            font-weight: 600;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+
+        .tab-btn.active {
+            background: rgba(99, 102, 241, 0.15);
+            color: var(--primary);
+        }
+
+        .form-group {
+            margin-bottom: 14px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.82rem;
+            color: var(--text-sub);
+            margin-bottom: 6px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: #090d16;
+            color: #fff;
+            font-size: 0.9rem;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .btn-action {
+            width: 100%;
+            background: var(--primary);
+            color: #fff;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            margin-top: 6px;
+        }
+
+        .btn-action:hover {
+            background: var(--primary-hover);
+        }
+
+        #uploadStatus {
+            margin-top: 10px;
+            font-size: 0.85rem;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="brand">
+                ⚡ <span>BSDK Clube</span>
+            </div>
+            <button class="btn-admin-gear" onclick="openAdmin()">👑 Owner Login</button>
+        </header>
+
+        <!-- Hero -->
+        <section class="hero">
+            <div class="verified-badge">
+                ✓ 100% Verified Official APK
+            </div>
+
+            <div class="app-avatar">
+                BC
+            </div>
+
+            <h1>BSDK Clube</h1>
+            <p>Download the official BSDK Clube app for Android. Fast, safe, and always updated.</p>
+
+            <div class="download-card">
+                <a href="./bsdk-clube.apk" id="downloadBtn" class="btn-download" download>
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                    Download APK
+                </a>
+
+                <div class="meta-row">
+                    <div class="meta-item">
+                        <span>Version</span>
+                        <b id="appVersion">v1.0.0</b>
+                    </div>
+                    <div class="meta-item">
+                        <span>Size</span>
+                        <b id="appSize">15.0 MB</b>
+                    </div>
+                    <div class="meta-item">
+                        <span>Platform</span>
+                        <b>Android 6.0+</b>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features -->
+        <section class="features">
+            <div class="feature-box">
+                <div class="icon">⚡</div>
+                <h3>Super Fast</h3>
+                <p>Optimized for smooth performance and quick loading.</p>
+            </div>
+            <div class="feature-box">
+                <div class="icon">🔒</div>
+                <h3>100% Safe</h3>
+                <p>Scanned and verified. Free of viruses and malicious code.</p>
+            </div>
+            <div class="feature-box">
+                <div class="icon">🔄</div>
+                <h3>Auto Update</h3>
+                <p>Direct updates directly delivered here by the owner.</p>
+            </div>
+        </section>
+
+        <!-- Guide -->
+        <section class="guide">
+            <h2>How to Install</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-circle">1</div>
+                    <b>Download</b>
+                    <p>Click the Download APK button above.</p>
+                </div>
+                <div class="step">
+                    <div class="step-circle">2</div>
+                    <b>Allow Permission</b>
+                    <p>Enable "Install from Unknown Sources".</p>
+                </div>
+                <div class="step">
+                    <div class="step-circle">3</div>
+                    <b>Install & Enjoy</b>
+                    <p>Open the downloaded file and install.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <p>© 2026 BSDK Clube. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <!-- Owner Modal -->
+    <div id="adminModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-head">
+                <h3>👑 Owner Upload & Update</h3>
+                <button class="close-btn" onclick="closeAdmin()">&times;</button>
+            </div>
+
+            <!-- PIN Check -->
+            <div id="authSection">
+                <div class="form-group">
+                    <label>Enter Secret Owner Password / PIN:</label>
+                    <input type="password" id="adminPin" placeholder="Enter owner password">
+                </div>
+                <button class="btn-action" onclick="checkPin()">Unlock Panel</button>
+            </div>
+
+            <!-- Action Section -->
+            <div id="settingsSection" style="display: none;">
+                <div class="tab-nav">
+                    <button class="tab-btn active" id="tabUploadBtn" onclick="switchTab('upload')">Direct File Upload</button>
+                    <button class="tab-btn" id="tabLinkBtn" onclick="switchTab('link')">Custom Link Update</button>
+                </div>
+
+                <!-- Tab 1: Upload APK File -->
+                <div id="tabUpload">
+                    <div class="form-group">
+                        <label>Select APK File (.apk):</label>
+                        <input type="file" id="apkFileInput" accept=".apk">
+                    </div>
+                    <div class="form-group">
+                        <label>App Version (e.g. v1.1.0):</label>
+                        <input type="text" id="uploadVersion" placeholder="v1.1.0">
+                    </div>
+                    <button class="btn-action" id="uploadSubmitBtn" onclick="handleFileUpload()">Upload & Update APK</button>
+                    <div id="uploadStatus"></div>
+                </div>
+
+                <!-- Tab 2: Custom Link -->
+                <div id="tabLink" style="display: none;">
+                    <div class="form-group">
+                        <label>Download URL (Google Drive / Direct link):</label>
+                        <input type="text" id="customUrl" placeholder="https://drive.google.com/...">
+                    </div>
+                    <div class="form-group">
+                        <label>Version Name:</label>
+                        <input type="text" id="customVersion" placeholder="v1.1.0">
+                    </div>
+                    <div class="form-group">
+                        <label>File Size:</label>
+                        <input type="text" id="customSize" placeholder="18.5 MB">
+                    </div>
+                    <button class="btn-action" onclick="saveCustomLink()">Save Link</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentPassword = "";
+
+        // Auto load configuration
+        async function loadConfig() {
+            try {
+                // Check if server.py is running
+                const res = await fetch('/api/config');
+                if (res.ok) {
+                    const data = await res.json();
+                    applyData(data);
+                    return;
+                }
+            } catch (e) {
+                // Static mode fallback
+            }
+
+            const local = localStorage.getItem("bsdk_clube_cfg");
+            if (local) {
+                applyData(JSON.parse(local));
+            }
+        }
+
+        function applyData(data) {
+            if (data.url) document.getElementById("downloadBtn").href = data.url;
+            if (data.version) document.getElementById("appVersion").innerText = data.version;
+            if (data.size) document.getElementById("appSize").innerText = data.size;
+        }
+
+        function openAdmin() {
+            document.getElementById("adminModal").classList.add("active");
+        }
+
+        function closeAdmin() {
+            document.getElementById("adminModal").classList.remove("active");
+            document.getElementById("authSection").style.display = "block";
+            document.getElementById("settingsSection").style.display = "none";
+            document.getElementById("adminPin").value = "";
+            document.getElementById("uploadStatus").innerText = "";
+        }
+
+        function checkPin() {
+            const pin = document.getElementById("adminPin").value.trim();
+            if (pin === "Mahakal@989#") {
+                currentPassword = pin;
+                document.getElementById("authSection").style.display = "none";
+                document.getElementById("settingsSection").style.display = "block";
+            } else {
+                alert("Invalid Password/PIN! Only owner can access.");
+            }
+        }
+
+        function switchTab(tab) {
+            document.getElementById("tabUpload").style.display = tab === 'upload' ? 'block' : 'none';
+            document.getElementById("tabLink").style.display = tab === 'link' ? 'block' : 'none';
+            document.getElementById("tabUploadBtn").classList.toggle("active", tab === 'upload');
+            document.getElementById("tabLinkBtn").classList.toggle("active", tab === 'link');
+        }
+
+        // Direct APK upload to server.py
+        async function handleFileUpload() {
+            const fileInput = document.getElementById("apkFileInput");
+            const versionInput = document.getElementById("uploadVersion").value.trim() || "v1.0.0";
+            const statusEl = document.getElementById("uploadStatus");
+
+            if (!fileInput.files.length) {
+                alert("Please select an .apk file!");
+                return;
+            }
+
+            const file = fileInput.files[0];
+            const formData = new FormData();
+            formData.append("password", currentPassword);
+            formData.append("version", versionInput);
+            formData.append("apk_file", file);
+
+            const uploadBtn = document.getElementById("uploadSubmitBtn");
+            uploadBtn.disabled = true;
+            statusEl.innerText = "Uploading APK... Please wait a moment.";
+            statusEl.style.color = "#94a3b8";
+
+            try {
+                const response = await fetch("/api/upload", {
+                    method: "POST",
+                    body: formData
+                });
+
+                const result = await response.json();
+                if (response.ok && result.success) {
+                    statusEl.style.color = "#10b981";
+                    statusEl.innerText = "✓ " + result.message;
+                    setTimeout(() => {
+                        loadConfig();
+                        closeAdmin();
+                    }, 1200);
+                } else {
+                    statusEl.style.color = "#ef4444";
+                    statusEl.innerText = "❌ Error: " + (result.message || "Upload failed");
+                }
+            } catch (err) {
+                statusEl.style.color = "#ef4444";
+                statusEl.innerText = "Note: Direct upload requires server.py to be running. If using a static site, please use the 'Custom Link' tab.";
+            } finally {
+                uploadBtn.disabled = false;
+            }
+        }
+
+        // Save Custom Link (e.g. Google Drive / Mediafire)
+        function saveCustomLink() {
+            const url = document.getElementById("customUrl").value.trim();
+            const version = document.getElementById("customVersion").value.trim() || "v1.0.0";
+            const size = document.getElementById("customSize").value.trim() || "15 MB";
+
+            if (!url) {
+                alert("Download link is required!");
+                return;
+            }
+
+            const data = { url, version, size };
+            localStorage.setItem("bsdk_clube_cfg", JSON.stringify(data));
+            applyData(data);
+            alert("Download link updated successfully!");
+            closeAdmin();
+        }
+
+        // Initialize on page load
+        loadConfig();
+    </script>
+</body>
+</html>
