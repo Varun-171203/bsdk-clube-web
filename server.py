@@ -50,6 +50,7 @@ class BSDKAppHandler(SimpleHTTPRequestHandler):
             parts = body.split(b'--' + boundary)
             password = None
             version = "v1.0.0"
+            custom_size = None
             file_data = None
             file_name = "bsdk-clube.apk"
 
@@ -70,6 +71,8 @@ class BSDKAppHandler(SimpleHTTPRequestHandler):
                     password = content.decode('utf-8', errors='ignore').strip()
                 elif 'name="version"' in header:
                     version = content.decode('utf-8', errors='ignore').strip()
+                elif 'name="size"' in header:
+                    custom_size = content.decode('utf-8', errors='ignore').strip()
                 elif 'name="apk_file"' in header:
                     file_data = content
                     fn_match = re.search(r'filename="([^"]+)"', header)
@@ -89,7 +92,7 @@ class BSDKAppHandler(SimpleHTTPRequestHandler):
             with open(apk_path, "wb") as f:
                 f.write(file_data)
 
-            size_mb = f"{len(file_data) / (1024 * 1024):.1f} MB"
+            size_mb = custom_size if custom_size else f"{len(file_data) / (1024 * 1024):.1f} MB"
             config_data = {
                 "url": "./bsdk-clube.apk",
                 "version": version or "v1.0.0",

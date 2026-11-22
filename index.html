@@ -496,11 +496,15 @@
                 <div id="tabUpload">
                     <div class="form-group">
                         <label>Select APK File (.apk):</label>
-                        <input type="file" id="apkFileInput" accept=".apk">
+                        <input type="file" id="apkFileInput" accept=".apk" onchange="autoDetectSize()">
                     </div>
                     <div class="form-group">
                         <label>App Version (e.g. v1.1.0):</label>
                         <input type="text" id="uploadVersion" placeholder="v1.1.0">
+                    </div>
+                    <div class="form-group">
+                        <label>File Size (e.g. 15.0 MB):</label>
+                        <input type="text" id="uploadSize" placeholder="15.0 MB">
                     </div>
                     <button class="btn-action" id="uploadSubmitBtn" onclick="handleFileUpload()">Upload & Update APK</button>
                     <div id="uploadStatus"></div>
@@ -565,6 +569,17 @@
             document.getElementById("settingsSection").style.display = "none";
             document.getElementById("adminPin").value = "";
             document.getElementById("uploadStatus").innerText = "";
+            const uploadSize = document.getElementById("uploadSize");
+            if (uploadSize) uploadSize.value = "";
+        }
+
+        function autoDetectSize() {
+            const fileInput = document.getElementById("apkFileInput");
+            if (fileInput.files && fileInput.files[0]) {
+                const file = fileInput.files[0];
+                const sizeMb = (file.size / (1024 * 1024)).toFixed(1) + " MB";
+                document.getElementById("uploadSize").value = sizeMb;
+            }
         }
 
         function checkPin() {
@@ -585,10 +600,11 @@
             document.getElementById("tabLinkBtn").classList.toggle("active", tab === 'link');
         }
 
-        // Direct APK upload to server.py
+        // Direct APK upload to server.py or static update
         async function handleFileUpload() {
             const fileInput = document.getElementById("apkFileInput");
             const versionInput = document.getElementById("uploadVersion").value.trim() || "v1.0.0";
+            let sizeInput = document.getElementById("uploadSize").value.trim();
             const statusEl = document.getElementById("uploadStatus");
 
             if (!fileInput.files.length) {
@@ -597,14 +613,19 @@
             }
 
             const file = fileInput.files[0];
+            if (!sizeInput) {
+                sizeInput = (file.size / (1024 * 1024)).toFixed(1) + " MB";
+            }
+
             const formData = new FormData();
             formData.append("password", currentPassword);
             formData.append("version", versionInput);
+            formData.append("size", sizeInput);
             formData.append("apk_file", file);
 
             const uploadBtn = document.getElementById("uploadSubmitBtn");
             uploadBtn.disabled = true;
-            statusEl.innerText = "Uploading APK... Please wait a moment.";
+            statusEl.innerText = "Processing... Please wait a moment.";
             statusEl.style.color = "#94a3b8";
 
             try {
@@ -617,17 +638,37 @@
                 if (response.ok && result.success) {
                     statusEl.style.color = "#10b981";
                     statusEl.innerText = "✓ " + result.message;
+                    const data = {
+                        url: "./bsdk-clube.apk",
+                        version: versionInput,
+                        size: sizeInput
+                    };
+                    localStorage.setItem("bsdk_clube_cfg", JSON.stringify(data));
+                    applyData(data);
                     setTimeout(() => {
-                        loadConfig();
                         closeAdmin();
                     }, 1200);
+                    return;
                 } else {
                     statusEl.style.color = "#ef4444";
                     statusEl.innerText = "❌ Error: " + (result.message || "Upload failed");
                 }
             } catch (err) {
-                statusEl.style.color = "#ef4444";
-                statusEl.innerText = "Note: Direct upload requires server.py to be running. If using a static site, please use the 'Custom Link' tab.";
+                // If running on a static hosting platform (like Netlify)
+                const fileBlobUrl = URL.createObjectURL(file);
+                const data = {
+                    url: fileBlobUrl,
+                    version: versionInput,
+                    size: sizeInput
+                };
+                localStorage.setItem("bsdk_clube_cfg", JSON.stringify(data));
+                applyData(data);
+
+                statusEl.style.color = "#10b981";
+                statusEl.innerText = `✓ Updated! Size: ${sizeInput} | Version: ${versionInput}`;
+                setTimeout(() => {
+                    closeAdmin();
+                }, 1200);
             } finally {
                 uploadBtn.disabled = false;
             }
